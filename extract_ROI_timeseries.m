@@ -48,7 +48,11 @@
 % or
 % % roi = extract_ROI_timeseries('roi',myRoiStruct,'baseline_window',-1)
 %
-% Mai-Anh Vu, 11/29/2023
+% This function includes within it the functions FtoFc and apply_filter, 
+% provided by Dr. Jason R. Climer (jason.r.climer@gmail.com)
+% 
+%
+% updated Mai-Anh Vu, 11/29/2023
 %
 
 function roi = extract_ROI_timeseries(varargin) 
@@ -141,6 +145,7 @@ function [ F ] = apply_filter( X,B )
 %           filter, the score in F would be 1.
 %
 % Jason R. Climer, PhD (jason.r.climer@gmail.com) 11 January, 2017
+
 vect = @(x)x(:);
 
 if ndims(X)==3
@@ -166,7 +171,7 @@ end
 function [ Fc, scale, center ] = FtoFc( F, scale_window )
 %FTOFC Normalizes by the 8th percentile in a sliding window and subtracts
 %   the median to create the modified DFoF
-% function acquired from Dr. Jason R. Climer
+% function provided by Dr. Jason R. Climer (jason.r.climer@gmail.com)
 
 if ~exist('scale_window','var'), scale_window = 1e3; end
 
