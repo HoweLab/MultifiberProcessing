@@ -19,7 +19,10 @@ Note that each of these steps is packaged in a Matlab App. There are 2 ways to r
    * This is called by MAP_ROIS and also can be run as a standalone function to change the baseline window, or change the baseline calculation method (sliding 8th percentile vs exponential baseline).
 
 ## Dependencies
-
+* [Bio-Formats](https://bio-formats.readthedocs.io/en/v7.0.1/users/matlab/index.html)
+* [MATLAB Image Processing Toolbox](https://www.mathworks.com/products/image.html)
+* [MATLAB Statistics and Machine Learning Toolbox](https://www.mathworks.com/products/statistics.html)
+* [MATLAB Curve Fitting Toolbox](https://www.mathworks.com/products/curvefitting.html)
 
 
 
