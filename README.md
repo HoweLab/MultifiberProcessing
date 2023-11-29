@@ -4,6 +4,11 @@ Matlab code to preprocess raw multifiber photometry data. See [Vu et al., 2023](
 Update 11/27/23: This repository is currently in progress and code is actively being added. It should be complete shortly.
 
 ## There are 2 main steps:
+Each of these steps is packaged in a Matlab App. There are 2 ways to run each of these apps.
+1. The .mlappinstall file contains the installer for the standalone app and includes the dependencies required.
+2. If you have the dependencies required in your path (see below), you can alternatively just run the .mlapp file.
+
+### The Steps   
 1. PREPROCESS_MULTIFIB
    * Convert raw movie files (.cxd) to 3D .tif files, and motion-correct.
 2. MAP_ROIS
