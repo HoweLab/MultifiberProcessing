@@ -11,8 +11,8 @@ Update 11/27/23: This repository is currently in progress and code is actively b
 
 
 Note that each of these steps is packaged in a Matlab App. There are 2 ways to run each of these apps.
-    1. The .mlappinstall file contains the installer for the standalone app and includes the dependencies required.
-    2. If you have the dependencies required in your path (see below), you can alternatively just run the .mlapp file.
+1. The .mlappinstall file contains the installer for the standalone app and includes the dependencies required.
+2. If you have the dependencies required in your path (see below), you can alternatively just run the .mlapp file.
 
 ## Dependencies
 
