@@ -742,7 +742,7 @@ if ~isempty(output.ROIs)
 end
 
 % clear global variable and close figure
-clear global output
+clearvars -global output
 close all
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

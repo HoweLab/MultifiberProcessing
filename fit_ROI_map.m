@@ -914,5 +914,6 @@ if ~isempty(output.ROIs)
 end
 
 close all
-clear global
+clearvars -global output
+
 

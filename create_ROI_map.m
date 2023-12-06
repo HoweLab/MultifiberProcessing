@@ -486,7 +486,7 @@ histogram(handles.axes2,output.snapshot(:))
 hold on
 xline(handles.axes2,get(handles.min_slider,'Value')*65535,'-r')
 xline(handles.axes2,get(handles.max_slider,'Value')*65535,'-r')
-set(handles.axes2,'YTick',[],'XTick',[],'XLim',[0 65525]);
+set(handles.axes2,'YTick',[],'XTick',[],'XLim',[0 65535]);
 ROIs(handles)
 
 
@@ -687,6 +687,6 @@ if ~isempty(output.ROIs)
     save(outputPath,'-struct','output')
 end
 close all
-clear global
+clearvars -global output
 
 
