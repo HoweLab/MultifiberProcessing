@@ -42,6 +42,6 @@ MATLAB code to preprocess raw multifiber photometry data. This code was written 
 
 
 
-Updated 12/6/2023 by Mai-Anh Vu
+
 
 
