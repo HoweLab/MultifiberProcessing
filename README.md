@@ -10,7 +10,7 @@ MATLAB code to preprocess raw multifiber photometry data. This code was written 
 
 ## 1) PREPROCESS_MULTIFIB
    * Convert raw movie files (.cxd) to 3D .tif files, and motion-correct.
-   * See PREPROCESS_MULTIFIB_README.pdf for instructiosn and more info
+   * See PREPROCESS_MULTIFIB_README.pdf for instructions and more info
 
 ![Screenshot 2023-12-01 161617](https://github.com/HoweLab/MultifiberProcessing/assets/21954946/dc77fdcd-b07d-489c-bde0-16c87edfcbf2)
 
