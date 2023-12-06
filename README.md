@@ -1,7 +1,6 @@
 # MultifiberProcessing
 MATLAB code to preprocess raw multifiber photometry data. This code was written and developed in MATLAB2020b. See [Vu et al., 2023](https://www.biorxiv.org/content/10.1101/2023.11.17.567425v1).
 
-Update 11/27/23: This repository is currently in progress and code is actively being added. It should be complete shortly.
 
 # Main Steps
 
