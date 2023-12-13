@@ -22,7 +22,7 @@ function varargout = fit_ROI_map(varargin)
 
 % Edit the above text to modify the response to help fit_ROI_map
 
-% Last Modified by GUIDE v2.5 02-Oct-2023 09:34:32
+% Last Modified by GUIDE v2.5 18-Dec-2023 14:07:16
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -917,3 +917,14 @@ close all
 clearvars -global output
 
 
+
+
+% --- Executes when user attempts to close figure1.
+function figure1_CloseRequestFcn(hObject, eventdata, handles)
+% hObject    handle to figure1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: delete(hObject) closes the figure
+clearvars -global output
+delete(hObject);
