@@ -19,7 +19,7 @@ Convert raw movie files (.cxd) to 3D .tif files, and motion-correct. See PREPROC
 Establish ROIs and extract relevant neural data. See MAP_ROIS_README.pdf for instructions and more info.
   
    
-![image](https://github.com/HoweLab/MultifiberProcessing/assets/21954946/b2180ce7-5527-4551-b858-f5616590c6b0)
+![Screenshot 2024-03-25 093832](https://github.com/HoweLab/MultifiberProcessing/assets/21954946/d9204dd5-12f1-481d-a483-faaab3c9c271)
 
 
 
