@@ -22,7 +22,7 @@ function varargout = fit_ROI_map(varargin)
 
 % Edit the above text to modify the response to help fit_ROI_map
 
-% Last Modified by GUIDE v2.5 18-Dec-2023 14:07:16
+% Last Modified by GUIDE v2.5 25-Mar-2024 09:24:31
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -297,6 +297,28 @@ set(handles.scaleHorizDown,'Enable','on')
 set(handles.scaleBothUp,'Enable','on')
 set(handles.scaleBothDown,'Enable','on')
 set(handles.scaleMag,'Enable','on')
+set(handles.roiNum,'Enable','on')
+set(handles.roiUp,'Enable','on')
+set(handles.roiDown,'Enable','on')
+set(handles.roiLeft,'Enable','on')
+set(handles.roiRight,'Enable','on')
+set(handles.roiColor_selected,'Enable','on')
+set(handles.roiColor_selected1,'Enable','on')
+set(handles.roiColor_selected2,'Enable','on')
+set(handles.roiColor_selected3,'Enable','on')
+set(handles.roiColor_selected4,'Enable','on')
+set(handles.roiColor_selected5,'Enable','on')
+set(handles.roiColor_selected6,'Enable','on')
+set(handles.roiColor_selected7,'Enable','on')
+set(handles.roiColor_unselected,'Enable','on')
+set(handles.roiColor_unselected1,'Enable','on')
+set(handles.roiColor_unselected2,'Enable','on')
+set(handles.roiColor_unselected3,'Enable','on')
+set(handles.roiColor_unselected4,'Enable','on')
+set(handles.roiColor_unselected5,'Enable','on')
+set(handles.roiColor_unselected6,'Enable','on')
+set(handles.roiColor_unselected7,'Enable','on')
+set(handles.check_roiRad2,'Enable','on')   
 set(handles.roiRad1,'Enable','on')    
 set(handles.roiRad2,'Enable','on')   
 set(handles.roiList1Button,'Enable','on')    
@@ -305,6 +327,12 @@ set(handles.DFFwindow,'Enable','on')
 set(handles.apply_all_frames,'Enable','on')
 set(handles.apply_first_frame,'Enable','on')
 set(handles.done,'Enable','on')
+
+
+% initialize these
+output.temp.selected_roi=1;
+set(handles.roiNum,'String',1);
+
 % visualize: let's put up the original snapshot and ROIs top R corner    
 imagesc(handles.axes_orig,output.temp.origSnapshot)
 axis off equal;
@@ -549,6 +577,40 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+% --- Executes on button press in check_roiRad1.
+function check_roiRad1_Callback(hObject, eventdata, handles)
+% hObject    handle to check_roiRad1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of check_roiRad1
+
+
+% --- Executes on button press in check_roiRad2.
+function check_roiRad2_Callback(hObject, eventdata, handles)
+% hObject    handle to check_roiRad2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of check_roiRad2
+global output
+if get(check_roiRad2,'Value') == 0
+    set(handles.roiRad2,'Enable','off')
+    set(handles.roiList2Button,'Enable','off')
+    output.radius2 = nan;
+    output.roiRad1List = [1:size(rois.ROIs,1)];    
+    output.roiRad2List = [];
+    ROIs(handles)
+else
+    set(handles.roiRad2,'Enable','on')
+    set(handles.roiList2Button,'Enable','on')
+    output.radius2 = str2double(get(handles.roiRad2,'String'));
+    output.roiRad1List = output.temp.origRoiRad1List;
+    output.roiRad2List = output.temp.origRoiRad2List;
+    ROIs(handles)
+end
+
+
 function roiRad1_Callback(hObject, eventdata, handles)
 % hObject    handle to roiRad1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -641,10 +703,10 @@ function colormap_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of colormap
 if get(hObject,'Value') == 1
-    set(hObject,'String','display COLOR')        
+    set(hObject,'String','PARULA')        
     ROIs(handles)
 else
-    set(hObject,'String','display GRAY')        
+    set(hObject,'String','GRAY')        
     ROIs(handles)
 end
 
@@ -737,6 +799,207 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
 end
 
 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%% ADJUST SINGLE ROI %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function roiNum_Callback(hObject, eventdata, handles)
+% hObject    handle to roiNum (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of roiNum as text
+%        str2double(get(hObject,'String')) returns contents of roiNum as a double
+global output
+output.temp.selected_roi = str2double(get(hObject,'String'));
+if output.temp.selected_roi < 1
+    output.temp.selected_roi = 1;
+end
+if output.temp.selected_roi > size(output.ROIs,1)
+    output.temp.selected_roi = size(output.ROIs,1);
+end
+ROIs(handles)
+
+% --- Executes during object creation, after setting all properties.
+function roiNum_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to roiNum (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in roiUp.
+function roiUp_Callback(hObject, eventdata, handles)
+% hObject    handle to roiUp (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global output
+output.ROIs(output.temp.selected_roi,2) = output.ROIs(output.temp.selected_roi,2)-1;
+ROIs(handles)
+
+% --- Executes on button press in roiLeft.
+function roiLeft_Callback(hObject, eventdata, handles)
+% hObject    handle to roiLeft (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global output
+output.ROIs(output.temp.selected_roi,1) = output.ROIs(output.temp.selected_roi,1)-1;
+ROIs(handles)
+
+
+% --- Executes on button press in roiRight.
+function roiRight_Callback(hObject, eventdata, handles)
+% hObject    handle to roiRight (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global output
+output.ROIs(output.temp.selected_roi,1) = output.ROIs(output.temp.selected_roi,1)+1;
+ROIs(handles)
+
+% --- Executes on button press in roiDown.
+function roiDown_Callback(hObject, eventdata, handles)
+% hObject    handle to roiDown (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global output
+output.ROIs(output.temp.selected_roi,2) = output.ROIs(output.temp.selected_roi,2)+1;
+ROIs(handles)
+
+
+% --- Executes on button press in roiColor_unselected1.
+function roiColor_unselected1_Callback(hObject, eventdata, handles)
+% hObject    handle to roiColor_unselected1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of roiColor_unselected1
+ROIs(handles)
+
+% --- Executes on button press in roiColor_unselected2.
+function roiColor_unselected2_Callback(hObject, eventdata, handles)
+% hObject    handle to roiColor_unselected2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of roiColor_unselected2
+ROIs(handles)
+
+% --- Executes on button press in roiColor_unselected3.
+function roiColor_unselected3_Callback(hObject, eventdata, handles)
+% hObject    handle to roiColor_unselected3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of roiColor_unselected3
+ROIs(handles)
+
+% --- Executes on button press in roiColor_unselected4.
+function roiColor_unselected4_Callback(hObject, eventdata, handles)
+% hObject    handle to roiColor_unselected4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of roiColor_unselected4
+ROIs(handles)
+
+% --- Executes on button press in roiColor_unselected5.
+function roiColor_unselected5_Callback(hObject, eventdata, handles)
+% hObject    handle to roiColor_unselected5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of roiColor_unselected5
+ROIs(handles)
+
+% --- Executes on button press in roiColor_unselected6.
+function roiColor_unselected6_Callback(hObject, eventdata, handles)
+% hObject    handle to roiColor_unselected6 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of roiColor_unselected6
+ROIs(handles)
+
+% --- Executes on button press in roiColor_unselected7.
+function roiColor_unselected7_Callback(hObject, eventdata, handles)
+% hObject    handle to roiColor_unselected7 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of roiColor_unselected7
+ROIs(handles)
+
+% --- Executes on button press in roiColor_selected1.
+function roiColor_selected1_Callback(hObject, eventdata, handles)
+% hObject    handle to roiColor_selected1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of roiColor_selected1
+ROIs(handles)
+
+% --- Executes on button press in roiColor_selected2.
+function roiColor_selected2_Callback(hObject, eventdata, handles)
+% hObject    handle to roiColor_selected2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of roiColor_selected2
+ROIs(handles)
+
+% --- Executes on button press in roiColor_selected3.
+function roiColor_selected3_Callback(hObject, eventdata, handles)
+% hObject    handle to roiColor_selected3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of roiColor_selected3
+ROIs(handles)
+
+% --- Executes on button press in roiColor_selected4.
+function roiColor_selected4_Callback(hObject, eventdata, handles)
+% hObject    handle to roiColor_selected4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of roiColor_selected4
+ROIs(handles)
+
+% --- Executes on button press in roiColor_selected5.
+function roiColor_selected5_Callback(hObject, eventdata, handles)
+% hObject    handle to roiColor_selected5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of roiColor_selected5
+ROIs(handles)
+
+% --- Executes on button press in roiColor_selected6.
+function roiColor_selected6_Callback(hObject, eventdata, handles)
+% hObject    handle to roiColor_selected6 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of roiColor_selected6
+ROIs(handles)
+
+% --- Executes on button press in roiColor_selected7.
+function roiColor_selected7_Callback(hObject, eventdata, handles)
+% hObject    handle to roiColor_selected7 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of roiColor_selected7
+ROIs(handles)
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%% VISUALIZE %%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -747,9 +1010,9 @@ global output
 cla(handles.axes_hist)
 histogram(handles.axes_hist,output.snapshot(:))
 hold on
-xline(handles.axes_hist,get(handles.min_slider,'Value')*65535,'-r')
-xline(handles.axes_hist,get(handles.max_slider,'Value')*65535,'-r')
-set(handles.axes_hist,'YTick',[],'XTick',[],'XLim',[0 65525]);
+xline(handles.axes_hist,get(handles.min_slider,'Value')*(2^16-1),'-r')
+xline(handles.axes_hist,get(handles.max_slider,'Value')*(2^16-1),'-r')
+set(handles.axes_hist,'YTick',[],'XTick',[],'XLim',[0 (2^16-1)]);
 ROIs(handles)
 
 function ROIs(handles)
@@ -778,19 +1041,73 @@ end
 axis off equal;
 caxis(caxis);
 hold on;
+
+% update some things
 output.radius1 = str2double(get(handles.roiRad1,'String'));
-output.radius2 = str2double(get(handles.roiRad2,'String'));
+if get(handles.check_roiRad2,'Value') == 1
+    output.radius2 = str2double(get(handles.roiRad2,'String'));
+end
+output.temp.selected_roi = str2double(get(handles.roiNum,'String'));
 colors = lines(7); % max number of colors is 7
+colorSelected = colors([ ...
+    get(handles.roiColor_selected1,'Value'),...
+    get(handles.roiColor_selected2,'Value'),...
+    get(handles.roiColor_selected3,'Value'),...
+    get(handles.roiColor_selected4,'Value'),...
+    get(handles.roiColor_selected5,'Value'),...
+    get(handles.roiColor_selected6,'Value'),...
+    get(handles.roiColor_selected7,'Value')]==1,:);
+colorUnselected = colors([ ...
+    get(handles.roiColor_unselected1,'Value'),...
+    get(handles.roiColor_unselected2,'Value'),...
+    get(handles.roiColor_unselected3,'Value'),...
+    get(handles.roiColor_unselected4,'Value'),...
+    get(handles.roiColor_unselected5,'Value'),...
+    get(handles.roiColor_unselected6,'Value'),...
+    get(handles.roiColor_unselected7,'Value')]==1,:);
+
+
+% for r = 1:size(output.ROIs,1) 
+%     thisColor = colors(1+rem(r,7),:);   
+%     if ismember(r,output.roiRad2List)
+%         thisRad = output.radius2;
+%     else
+%         thisRad = output.radius1;
+%     end
+%     tempPoly = nsidedpoly(16,'Center',output.ROIs(r,:),'Radius',thisRad);
+%     plot(handles.axes_roi,polyshape(round(tempPoly.Vertices)),'EdgeColor',thisColor,'FaceAlpha',0,'LineWidth',2)    
+% end
+
+% display ROIs
 for r = 1:size(output.ROIs,1) 
-    thisColor = colors(1+rem(r,7),:);   
-    if ismember(r,output.roiRad2List)
+    if get(handles.check_roiRad2,'Value')==1 && ismember(r,output.roiRad2List)
         thisRad = output.radius2;
     else
         thisRad = output.radius1;
     end
     tempPoly = nsidedpoly(16,'Center',output.ROIs(r,:),'Radius',thisRad);
-    plot(handles.axes_roi,polyshape(round(tempPoly.Vertices)),'EdgeColor',thisColor,'FaceAlpha',0,'LineWidth',2)    
+    if r == output.temp.selected_roi
+        plot(handles.axes_roi,polyshape(round(tempPoly.Vertices)),'EdgeColor',colorSelected,'FaceAlpha',0,'LineWidth',2)    
+        text(output.ROIs(r,1),output.ROIs(r,2),num2str(r),'Color',[0 0 0],'FontWeight','bold');
+        text(output.ROIs(r,1),output.ROIs(r,2),num2str(r),'Color',colorSelected);   
+    
+    else
+        plot(handles.axes_roi,polyshape(round(tempPoly.Vertices)),'EdgeColor',colorUnselected,'FaceAlpha',0,'LineWidth',2) 
+        text(output.ROIs(r,1),output.ROIs(r,2),num2str(r),'Color',[0 0 0],'FontWeight','bold');
+        text(output.ROIs(r,1),output.ROIs(r,2),num2str(r),'Color',colorUnselected);       
+    end
 end
+try % get user point to define roi num
+    upoint=drawpoint(handles.axes_roi,'InteractionsAllowed','none');
+    x = upoint.Position(1);
+    y = upoint.Position(2); 
+    roidist = ((output.ROIs(:,1)-x).^2+(output.ROIs(:,2)-y).^2).^.5;
+    [~,roinum] = min(roidist);
+    set(handles.roiNum,'String',num2str(roinum))            
+    ROIs(handles)
+catch exception
+end
+
 
 % --- Executes on button press in reset.
 function reset_Callback(hObject, eventdata, handles)
@@ -885,6 +1202,8 @@ if get(handles.apply_all_frames,'Value') == 1 && output.temp.single_frame == 1
 end
 
 % get the timeseries and dF/F
+
+
 output.FtoFcWindow =  str2double(get(handles.DFFwindow,'String'));
 tmp = extract_ROI_timeseries('data',output.temp.data,...
     'roi_masks',output.ROImasks,'baseline_window',output.FtoFcWindow);
@@ -895,7 +1214,7 @@ output.Fc_center = tmp.Fc_center;
 if output.temp.single_frame == 1
     output.F = output.F(1,:);
     output.Fc = output.Fc(1,:);
-    output.Fc_baseline = output.Fc_baseline(1,:);    
+    output.Fc_baseline = output.Fc_baseline(1,:);
 end
 clear tmp
 
@@ -916,9 +1235,6 @@ end
 close all
 clearvars -global output
 
-
-
-
 % --- Executes when user attempts to close figure1.
 function figure1_CloseRequestFcn(hObject, eventdata, handles)
 % hObject    handle to figure1 (see GCBO)
@@ -928,3 +1244,5 @@ function figure1_CloseRequestFcn(hObject, eventdata, handles)
 % Hint: delete(hObject) closes the figure
 clearvars -global output
 delete(hObject);
+
+

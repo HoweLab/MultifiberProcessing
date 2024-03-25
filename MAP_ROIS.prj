@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="4231727461" file="C:\Users\maianhvu\Documents\MATLAB\Scripts\MultifiberProcessing\MAP_ROIS.prj" location="C:\Users\maianhvu\Documents\MATLAB\Scripts\MultifiberProcessing" name="MAP_ROIS" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="1724247246" file="C:\Users\maianhvu\Documents\MATLAB\Scripts\MultifiberProcessing\MAP_ROIS.prj" location="C:\Users\maianhvu\Documents\MATLAB\Scripts\MultifiberProcessing" name="MAP_ROIS" target="target.mlapps" target-name="Package App">
     <param.appname>MAP_ROIS</param.appname>
     <param.authnamewatermark>Mai-Anh Vu</param.authnamewatermark>
     <param.email />
@@ -8,7 +8,7 @@
     <param.icons />
     <param.summary>assign ROIs and extract timseries from imaging data</param.summary>
     <param.description>Assign ROIs and extract timseries from multifiber photometry imaging data. See MultifiberProcessing repository for more information: https://github.com/HoweLab/MultifiberProcessing/</param.description>
-    <param.screenshot>C:\Users\maianhvu\AppData\Local\Temp\tpd387680a_61c7_427f_a43d_ff515e32169c.png</param.screenshot>
+    <param.screenshot>C:\Users\maianhvu\AppData\Local\Temp\tp29d0cf08_2d88_4b52_9b57_81362504005b.png</param.screenshot>
     <param.version>1.0</param.version>
     <param.products.name>
       <item>MATLAB</item>
@@ -44,14 +44,13 @@
     </fileset.main>
     <fileset.depfun />
     <fileset.resources>
+      <file>C:\Users\maianhvu\Documents\MATLAB\Scripts\ImageProcessing\utils\secs2hms\secs2hms.m</file>
       <file>${PROJECT_ROOT}\create_ROI_map.fig</file>
       <file>${PROJECT_ROOT}\create_ROI_map.m</file>
       <file>${PROJECT_ROOT}\extract_ROI_timeseries.m</file>
       <file>${PROJECT_ROOT}\fit_ROI_map.fig</file>
       <file>${PROJECT_ROOT}\fit_ROI_map.m</file>
-      <file>${PROJECT_ROOT}\private\load_tiffs_fast.m</file>
-      <file>${PROJECT_ROOT}\refine_ROI_map.fig</file>
-      <file>${PROJECT_ROOT}\refine_ROI_map.m</file>
+      <file>${PROJECT_ROOT}\load_tiffs_fast.m</file>
       <file>C:\Users\maianhvu\Documents\MATLAB\Scripts\OtherCode\bfmatlab\bfCheckJavaMemory.m</file>
       <file>C:\Users\maianhvu\Documents\MATLAB\Scripts\OtherCode\bfmatlab\bfCheckJavaPath.m</file>
       <file>C:\Users\maianhvu\Documents\MATLAB\Scripts\OtherCode\bfmatlab\bfGetFileExtensions.m</file>
