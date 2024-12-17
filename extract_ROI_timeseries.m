@@ -208,11 +208,13 @@ function [ Fc, scale, center ] = FtoFc_exp(F,varargin)
 %                         (e.g.,8 for 8th percentile, 20 for 20th, etc) 
 %
 % Dr. Mai-Anh Vu, 5/16/2023
+% edited 12/17/2024 to enable input of exponential model
 
 %%%  parse optional inputs %%%
 ip = inputParser;
 ip.addParameter('baseline_window',[]);
 ip.addParameter('baseline_perc',[]);
+ip.addParameter('exp_model','exp2'); % default is 2-term exponential; can also use 'exp1', for example
 ip.parse(varargin{:});
 for j=fields(ip.Results)'
     eval([j{1} '=ip.Results.' j{1} ';']);
@@ -233,12 +235,19 @@ scale = nan(size(y_all));
 x = 1:size(F,1);
 x = x(:);
 for i = 1:size(y_all,2)
-    y = y_all(:,i);
-    mdl = fit(x(:),y,'exp2');    
-    scale(:,i) = mdl.a*exp(mdl.b*x)+mdl.c*exp(mdl.d*x);
+    this_y = y_all(:,i);
+    this_x = x(:);
+    are_nan = isnan(this_y) | isnan(this_x);  
+    this_x = this_x(~are_nan);
+    this_y = this_y(~are_nan);    
+    mdl = fit(this_x,this_y,exp_model);       
+    this_scale = mdl(this_x);
+    scale(~are_nan,i) = this_scale;
 end
 
 % DFF normalization
 Fc = F./scale;
-center = median(Fc);
+%center = median(Fc);
+center = nanmedian(Fc);
 Fc = Fc - center;
+
